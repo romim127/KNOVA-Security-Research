@@ -1,18 +1,18 @@
 # SCA-001 — Auditoría de dependencia transitiva vulnerable: minimatch
 
 **Fecha de observación:** 2026-11-16  
-**Responsable del análisis local:** KNOVA | NextGenAI  
+**Unidad de análisis:** KNOVA | NextGenAI  
 **Disciplina:** Software Composition Analysis (SCA) / Third-party risk  
 **Estado:** **Hallazgo confirmado en dependencias; remediación pendiente de verificación**  
 **Criticidad del aviso:** MODERADA (según npm/GHSA); **prioridad de tratamiento: requiere corrección planificada y seguimiento**.
 
 ## 1. Resumen ejecutivo
 
-Durante la instalación de dependencias de una aplicación web basada en HTML5, CSS, TypeScript y Vite se identificó una dependencia transitiva afectada por una vulnerabilidad pública. La instalación `npm.cmd install` fue exitosa (120 paquetes añadidos, 121 auditados) y, sin embargo, `npm audit` notificó **7 hallazgos moderados**, relacionados con la cadena de dependencias de `typescript-eslint` y con la biblioteca `minimatch`.
+Durante una instalación de dependencias con npm en un entorno Node.js/TypeScript se identificó una dependencia transitiva afectada por una vulnerabilidad pública. El caso ilustra un riesgo de la cadena de suministro: npm puede instalar correctamente paquetes compatibles con un manifiesto y un archivo de bloqueo, aunque alguna de sus versiones tenga un aviso de seguridad vigente. No implica que todas las instalaciones de npm presenten la misma vulnerabilidad. La ejecución de `npm.cmd install` fue exitosa (120 paquetes añadidos, 121 auditados) y, sin embargo, `npm audit` notificó **7 hallazgos moderados**, relacionados con la cadena de dependencias de `typescript-eslint` y con la biblioteca `minimatch`.
 
 Se confirmó `minimatch@10.2.6` bajo `@typescript-eslint/typescript-estree@8.72.2`. El componente declara `minimatch: ^10.2.2`, rango que excluye la versión `11.0.1` identificada como corregida. Las siete entradas del reporte no equivalen a siete CVE independientes.
 
-**Conclusión ejecutiva:** la vulnerabilidad de una dependencia de desarrollo es real como hallazgo de composición de software, pero **la posibilidad de explotación desde la aplicación desplegada no está demostrada**. El tratamiento debe centrarse en actualizar de forma compatible, documentar el riesgo mientras subsista y verificar los resultados.
+**Conclusión ejecutiva:** la vulnerabilidad de una dependencia de desarrollo es real como hallazgo de composición de software, pero **la explotabilidad en un entorno productivo no está determinada, ya que depende de la exposición y de las entradas procesadas**. El tratamiento debe centrarse en actualizar de forma compatible, documentar el riesgo mientras subsista y verificar los resultados.
 
 ## 2. Identificación del aviso
 
@@ -27,39 +27,37 @@ Se confirmó `minimatch@10.2.6` bajo `@typescript-eslint/typescript-estree@8.72.
 | Versión corregida indicada | `11.0.1` |
 | Mecanismo | Posible DoS por amplificación de `globParts` al analizar determinados patrones glob |
 
-**Evaluación de alcance:** el análisis de patrones podría consumir recursos de manera desproporcionada bajo ciertas entradas. No se ha reproducido un ataque ni demostrado un punto de entrada remoto sobre el proyecto web. El paquete está instalado como `devDependency`, lo cual exige analizar la exposición de la cadena de herramientas (por ejemplo, procesamiento de entradas no confiables en CI), sin presuponer vulnerabilidad remota del sitio.
+**Evaluación de alcance:** el análisis de patrones podría consumir recursos de manera desproporcionada bajo ciertas entradas. No se ha reproducido un ataque ni demostrado un punto de entrada remoto a la dependencia afectada. El paquete está instalado como `devDependency`, lo cual exige analizar la exposición de la cadena de herramientas (por ejemplo, procesamiento de entradas no confiables en CI), sin presuponer vulnerabilidad remota del sitio.
 
 ## 3. Activo, entorno y límites
 
-- Activo observado: entorno local de desarrollo del proyecto `pulso-abierto@1.0.0`.
+- Activo observado: árbol de dependencias npm instalado en un entorno local de desarrollo.
 - Sistema operativo: Windows, terminal PowerShell; npm 11.11.0.
 - Herramientas: ESLint 9.39.5, TypeScript 5.9.3 y Vite 7.3.8 (según evidencias recibidas).
-- La configuración del proyecto de práctica fue preparada con asistencia técnica; **no se atribuye la selección exacta de versiones a la institución educativa**.
-- La versión numérica de Node.js, el archivo `audit-antes.json` y las pruebas en navegador no fueron aportadas como evidencia.
-- Las salidas originales se conservaron en la conversación de trabajo; publicar capturas o JSON saneados permanece como acción pendiente.
+- La versión numérica de Node.js, el archivo `audit-antes.json` y pruebas de exposición en producción no forman parte de la evidencia disponible.
+- Las salidas de terminal de la evaluación inicial sustentan el registro cronológico; faltan exportaciones saneadas de esas evidencias al repositorio.
 
 ## 4. Evidencia cronológica y reproducibilidad
 
 | Ref. | Comando / prueba | Resultado observado |
 |---|---|---|
-| E01 | `npm -v` | PowerShell bloqueó `npm.ps1` por Execution Policy; incidente de ejecución, no hallazgo de seguridad del paquete |
-| E02 | `npm.cmd -v` | `11.11.0` |
-| E03 | `npm.cmd install` | `added 120 packages, and audited 121 packages`; `7 moderate severity vulnerabilities` |
-| E04 | `npm.cmd audit` | Aviso `GHSA-g3hv-75wg-m249` en `minimatch`; 7 hallazgos moderados |
-| E05 | `npm.cmd run check` | `tsc --noEmit`, sin errores |
-| E06 | `npm.cmd run lint` | `eslint .`, sin errores |
-| E07 | `npm.cmd run build` | `vite v7.3.8`; compilación correcta; 4 módulos transformados |
-| E08 | `npm.cmd ls minimatch` y `npm.cmd explain minimatch` | `minimatch@10.2.6` bajo typescript-estree; también `minimatch@3.1.5` en rama ESLint |
-| E09 | `npm.cmd audit fix --dry-run` | `up to date`; permanecen 7 hallazgos; sin aplicar cambios |
-| E10 | `npm.cmd view typescript-eslint version` | `8.72.2` |
-| E11 | `npm.cmd view @typescript-eslint/typescript-estree version` | `8.72.2` |
-| E12 | `npm.cmd view @typescript-eslint/typescript-estree@latest dependencies.minimatch` | `^10.2.2` |
-| E13 | `npm.cmd outdated` | Saltos mayores disponibles en ESLint, TypeScript y Vite; no acreditan por sí solos remediación de minimatch |
+| E01 | `npm.cmd -v` | `11.11.0` |
+| E02 | `npm.cmd install` | `added 120 packages, and audited 121 packages`; `7 moderate severity vulnerabilities` |
+| E03 | `npm.cmd audit` | Aviso `GHSA-g3hv-75wg-m249` en `minimatch`; 7 hallazgos moderados |
+| E04 | `npm.cmd run check` | `tsc --noEmit`, sin errores |
+| E05 | `npm.cmd run lint` | `eslint .`, sin errores |
+| E06 | `npm.cmd run build` | `vite v7.3.8`; compilación correcta; 4 módulos transformados |
+| E07 | `npm.cmd ls minimatch` y `npm.cmd explain minimatch` | `minimatch@10.2.6` bajo typescript-estree; también `minimatch@3.1.5` en rama ESLint |
+| E08 | `npm.cmd audit fix --dry-run` | `up to date`; permanecen 7 hallazgos; sin aplicar cambios |
+| E09 | `npm.cmd view typescript-eslint version` | `8.72.2` |
+| E10 | `npm.cmd view @typescript-eslint/typescript-estree version` | `8.72.2` |
+| E11 | `npm.cmd view @typescript-eslint/typescript-estree@latest dependencies.minimatch` | `^10.2.2` |
+| E12 | `npm.cmd outdated` | Saltos mayores disponibles en ESLint, TypeScript y Vite; no acreditan por sí solos remediación de minimatch |
 
 ### Árbol confirmado
 
 ```text
-pulso-abierto@1.0.0
+proyecto-npm
 ├── eslint@9.39.5
 │   └── minimatch@3.1.5
 └── typescript-eslint@8.72.2
@@ -71,7 +69,7 @@ pulso-abierto@1.0.0
 
 ## 5. Análisis de causa raíz
 
-El problema detectado no se origina en la versión del ejecutable npm, sino en la **resolución de dependencias transitivas**. La aplicación depende de herramientas de desarrollo que imponen rangos de compatibilidad; el rango declarado por `typescript-estree` mantiene instalada una versión afectada de `minimatch`.
+El problema detectado no se origina en la versión del ejecutable npm, sino en la **resolución de dependencias transitivas**. El árbol analizado incorpora herramientas de desarrollo que imponen rangos de compatibilidad; el rango declarado por `typescript-estree` mantiene instalada una versión afectada de `minimatch`.
 
 La simulación `audit fix --dry-run` conservó los siete hallazgos. No se debe interpretar esta simulación como prueba de que una corrección real será imposible.
 
@@ -83,7 +81,7 @@ El issue público [typescript-eslint#13125](https://github.com/typescript-eslint
 
 **Potencial:** agotamiento de recursos durante la evaluación de determinados patrones glob; impacto principal en disponibilidad.
 
-**No confirmado:** exposición de entradas controladas por atacantes, explotación exitosa, incidente real, acceso remoto a esta ruta de código o presencia de ese componente dentro del artefacto de producción.
+**No confirmado:** exposición de entradas controladas por atacantes, explotación exitosa, incidente real, acceso remoto a esta ruta de código o presencia de ese componente en un artefacto de producción.
 
 **Tratamiento propuesto:** no aceptar la vulnerabilidad por mera ausencia de fallos de compilación. Establecer seguimiento, actualizar componentes compatibles y exigir verificación posterior documentada. Un `build` exitoso no es una prueba de seguridad.
 
@@ -109,7 +107,7 @@ La resolución tiene dos rutas, descritas con comandos y procedimientos de rever
 
 ## 9. Dictamen
 
-**Hallazgo confirmado; riesgo en cadena de desarrollo bajo tratamiento; remediación efectiva no acreditada.** Se requiere aplicación controlada del parche y verificación técnica. El reporte es una evaluación independiente de una CVE pública y **no reivindica su descubrimiento original**.
+**Hallazgo confirmado; riesgo en cadena de desarrollo bajo tratamiento; remediación efectiva no acreditada.** Se requiere aplicación controlada del parche y verificación técnica. El reporte documenta una CVE pública preexistente, con atribución al aviso original y evaluación propia de la cadena de dependencias observada.
 
 ## 10. Referencias
 
