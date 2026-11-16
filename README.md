@@ -6,6 +6,14 @@ Investigación técnica, auditoría de dependencias, análisis de riesgo y docum
 
 > **Una instalación exitosa no equivale a una instalación segura.**
 
+## Aviso visual de seguridad — Dependencias npm
+
+![Advertencia de dependencia vulnerable — KNOVA NextGenAI](Advertencia%20de%20dependencia%20vulnerable.png)
+
+[Ver tarjeta en tamaño completo](Advertencia%20de%20dependencia%20vulnerable.png) · [Consultar análisis técnico SCA-001](reports/2026/SCA-001-minimatch.md)
+
+La tarjeta presenta un **ejemplo conceptual de advertencia**, basado en la dependencia afectada identificada en el análisis SCA-001. No reproduce una salida literal de npm.
+
 ## Informes publicados
 
 | ID | Fecha | Componente | Hallazgo | Estado |
