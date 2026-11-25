@@ -1,6 +1,8 @@
 # GHV-001 · GitHub–Vercel — Error HTTP 500 durante integración
 
-![KNOVA — Aviso visual del caso](assets/knova-gh-vercel-banner.svg)
+![KNOVA — Cabecera provisional del caso](assets/knova-gh-vercel-banner.svg)
+
+> **Pendiente de publicación:** infografía final PNG aprobada para este caso. No confundir esta cabecera provisional con la pieza gráfica definitiva.
 
 **Fecha observada:** 25/11/2026 · **Clasificación:** disponibilidad, autenticación e integración de plataformas · **Estado:** estudio documental; causa específica no confirmada
 
@@ -61,7 +63,7 @@ Horas de Argentina (UTC−03). Las marcas del navegador son aproximadas, obtenid
 | H2: error durante la sesión o intercambio OAuth | Ruta visible de callback e indicación HTTP 500 | **Mecanismo interno desconocido** |
 | H3: fallo específico de instalación GitHub App / integración Vercel | Error al autorizar acceso al repositorio | **No aislado del resto de factores** |
 
-Un **HTTP 500 no equivale automáticamente a una vulnerabilidad**. Tampoco existe evidencia que conecte este incidente con **CVE-2026-118764 (minimatch)**.
+Un **HTTP 500 no equivale automáticamente a una vulnerabilidad**. No existe evidencia de explotación de una vulnerabilidad como causa de este incidente.
 
 ## 6. Método defensivo de investigación
 
@@ -84,7 +86,6 @@ Un **HTTP 500 no equivale automáticamente a una vulnerabilidad**. Tampoco exist
 - [GitHub Status — API pública](https://www.githubstatus.com/api)
 - [Vercel Status](https://www.vercel-status.com/)
 - [Repositorio Pulso Abierto](https://github.com/romim127/pulso-abierto)
-- [Caso separado SCA-001 / minimatch](../npm-minimatch-CVE-2026-118764/README.md)
 
 ---
 
