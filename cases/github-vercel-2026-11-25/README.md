@@ -1,12 +1,10 @@
 # GHV-001 · GitHub–Vercel — Error HTTP 500 durante integración
 
-![KNOVA — Cabecera provisional del caso](assets/knova-gh-vercel-banner.svg)
-
-> **Pendiente de publicación:** infografía final PNG aprobada para este caso. No confundir esta cabecera provisional con la pieza gráfica definitiva.
+![KNOVA — Infografía aprobada del incidente GitHub–Vercel](Informe%20de%20Incidente%20GitHub%E2%80%93Vercel.png)
 
 **Fecha observada:** 25/11/2026 · **Clasificación:** disponibilidad, autenticación e integración de plataformas · **Estado:** estudio documental; causa específica no confirmada
 
-> **Advertencia:** esta investigación NO identifica una vulnerabilidad explotable ni atribuye a GitHub/Vercel una falla de seguridad confirmada. El banner es una ilustración original de un incidente observado, no una comunicación del proveedor.
+> **Advertencia:** esta investigación NO identifica una vulnerabilidad explotable ni atribuye a GitHub/Vercel una falla de seguridad confirmada. La infografía es una representación documental del incidente observado, no una comunicación oficial del proveedor.
 
 ## 1. Resumen ejecutivo
 
