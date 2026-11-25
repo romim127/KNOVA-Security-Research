@@ -14,6 +14,16 @@ Investigación técnica, auditoría de dependencias, análisis de riesgo y docum
 
 La tarjeta presenta un **ejemplo conceptual de advertencia**, basado en la dependencia afectada identificada en el análisis SCA-001. No reproduce una salida literal de npm.
 
+
+## Casos de investigación
+
+| ID | Fecha | Categoría | Estado |
+|---|---|---|---|
+| [SCA-001 — npm / minimatch](cases/npm-minimatch-CVE-2026-118764/README.md) | 2026-11-16 | Software Composition Analysis | Hallazgo documentado; remediación original no verificada |
+| [GHV-001 — GitHub / Vercel](cases/github-vercel-2026-11-25/README.md) | 2026-11-25 | Disponibilidad, OAuth y GitHub Apps | Incidente observado; causa específica no confirmada |
+
+El **estilo visual** de ambos casos se inspira en la tarjeta roja de seguridad ya publicada, pero son investigaciones independientes. No se ha establecido relación causal entre CVE-2026-118764 y los errores HTTP 500 de GitHub.
+
 ## Informes publicados
 
 | ID | Fecha | Componente | Hallazgo | Estado |

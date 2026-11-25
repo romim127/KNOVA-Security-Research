@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="KNOVA Security Research. Caso GitHub Vercel. Error HTTP 500. Causa raiz no confirmada.">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#09070e"/><stop offset=".55" stop-color="#0c0a14"/><stop offset="1" stop-color="#090f22"/></linearGradient>
+<linearGradient id="edge"><stop stop-color="#ff254b"/><stop offset=".53" stop-color="#fa315e"/><stop offset="1" stop-color="#0bc9ff"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="6"/></filter></defs>
+<rect width="1200" height="420" fill="url(#bg)"/>
+<g stroke="#ff2048" opacity=".3" fill="none"><path d="M0 50 Q230 -30 420 68 T930 20 T1200 76"/><path d="M0 68 Q210 -14 420 84 T930 40 T1200 95"/><path d="M0 86 Q210 3 420 103 T930 60 T1200 114"/></g>
+<rect x="34" y="40" width="1132" height="340" rx="30" stroke="#fa2850" stroke-width="3" fill="none" opacity=".48" filter="url(#glow)"/>
+<rect x="34" y="40" width="1132" height="340" rx="30" stroke="url(#edge)" stroke-width="2" fill="none"/>
+<text x="75" y="103" fill="#fcfcff" font-family="Arial, sans-serif" font-size="32" font-weight="700">KNOVA | NextGenAI</text>
+<text x="77" y="133" fill="#9baac5" font-family="Arial, sans-serif" font-size="17" letter-spacing="4">SECURITY RESEARCH · INCIDENT CASE STUDY</text>
+<path d="M88 190 L113 234 H63 Z" fill="none" stroke="#ff304d" stroke-width="5" stroke-linejoin="round"/><text x="83" y="222" fill="#ff4664" font-family="Arial,sans-serif" font-weight="700" font-size="24">!</text>
+<text x="143" y="197" fill="#ffffff" font-family="Arial,sans-serif" font-size="43" font-weight="700">GitHub – Vercel</text>
+<text x="143" y="249" fill="#ff4762" font-family="Arial,sans-serif" font-size="48" font-weight="700">HTTP 500 · OAuth / Apps</text>
+<text x="78" y="311" fill="#dbe5f3" font-family="Arial,sans-serif" font-size="24">Correlación temporal ≠ causalidad demostrada</text>
+<text x="78" y="350" fill="#9baac5" font-family="Arial,sans-serif" font-size="18">25 NOV 2026  |  Evidencia observacional  |  Sin explotación</text>
+<path d="M1030 123 L1095 148 L1095 219 Q1095 268 1030 299 Q965 268 965 219 L965 148 Z" stroke="#12c9ff" stroke-width="6" fill="#0d1832"/>
+<text x="1030" y="237" text-anchor="middle" fill="#10d9ff" font-family="Arial,sans-serif" font-size="79" font-weight="700">∞</text>
+</svg>
